@@ -1,0 +1,58 @@
+IMPORTANT NOTES
+
+Just a notice, screen should always look something like this:
+_____________________________________________________________
+|THIS IS WHERE THE MAP WILL  |   THIS WILL SHOW WHAT ARMOR  |
+|            BE              |     YOU ARE WEARING          |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|___________________________________________________________|
+|                      THIS WILL BE THE BOX WERE POEPLE     |
+|                           TALK TO YOU ARE SUCH.           |
+|                                                           |
+|                                                           |
+|                                                           |
+|___________________________________________________________|
+|                                                           |
+|                                                           |
+|   THIS WILL BE YOUR CHOICES BOX                           |
+|                                                           |
+|___________________________________________________________|
+
+Battle Box
+_____________________________________________________________
+|THIS IS WHERE THE MAP WILL  |   THIS WILL SHOW WHAT ARMOR  |
+|            BE              |     YOU ARE WEARING          |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|                            |                              |
+|___________________________________________________________|
+|          ENEMY ATTACK TEXT                                |
+|                                                           |
+|                                                           |
+|                                                           |
+|                                                           |
+|___________________________________________________________|
+|                                                           |
+|                                                           |
+|   Your choices                                            |
+|                                                           |
+|___________________________________________________________|
+
+
+XP SYSTEM
+
+Killing a normal enemy -- 1-10 xp
+Killing a Thorg -- 30xp
+Killing a castle guard -- 30xp
+Killing a Boss enemy -- 50xp
+Completing a mission -- 100xp
