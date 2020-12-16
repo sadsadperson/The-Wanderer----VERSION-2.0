@@ -37,8 +37,10 @@ def print_map(x):
                 out += Back.BLACK + ' 👤 ' + Style.RESET_ALL
             elif i == 'player':
                 out += Back.BLACK + ' 🤺 ' + Style.RESET_ALL
+			elif i == 'K':
+				out += Back.YELLOW + Fore.BLACK + ' K ' + Style.RESET_ALL
         print(out)
-def kreiten_castle():
+def kreiten_castle(player):
 	the_map = mapify('kreiten_castle_map.txt')
 	print_map(the_map)
 	x = 15
@@ -58,12 +60,12 @@ def kreiten_castle():
 			x += 1
 		elif key_pressed == 'a':
 			x -= 1
-		if the_map[y][x] not in ('S', 'L', 'P', '|', '_'):
+		if the_map[y][x] not in ('S', 'L', 'P', '|', '_', 'K', 'A'):
 			the_map[y][x] = 'player'
 		elif the_map[y][x] == 'S':
-			shop.shop()
+			shop.shop(player)
 		elif the_map[y][x] == 'P':
-			ai_talk.talk()
+			pass
 		elif the_map[y][x] == 'L':
 			secret_lib_thing.library()
 		else:

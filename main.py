@@ -267,7 +267,7 @@ while playing:
     elif choice == '3':
         ## Check player location
         if player['location'] == 'Kreiten Castle':
-            my_map.kreiten_castle()
+            my_map.kreiten_castle(player)
     else:
         print(RED + "Error! Not a choice!")
                 

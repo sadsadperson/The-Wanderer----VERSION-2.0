@@ -10,6 +10,7 @@ ITALIC = '\033[3m'
 FAINT =  '\033[2m'
 NORMAL = '\033[22m'
 from colorama import Style
+import util
 
 def get_file(filename):
     with open('library/'+filename+'.txt', 'r') as file:
@@ -25,4 +26,21 @@ def print_file(filename):
     for line in data:
         print(BLUE + line)
 def library():
-	pass
+	util.clear()
+	print(Style.RESET_ALL)
+	print(PURPLE + BOLD + UNDERLINE + " ---- WELCOME TO THE LIBRARY ----- " + Style.RESET_ALL)
+	print("Would you like to read? [1] Yes | [2] No")
+	i = input()
+	if i == '1':
+		file = get_file('all')
+		print(file)
+		print("Choose something to read?")
+		choice = input()
+		try:
+			print_file(choice)
+			input()
+		except:
+			print("Error! Not a file")
+	else:
+		pass
+
