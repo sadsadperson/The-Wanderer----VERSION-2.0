@@ -4,6 +4,7 @@ from getch import getch
 import shop
 import secret_lib_thing
 import ai_talk
+import battle
 ### MAP ###
 #maps should be a list of lists, they should be 30 characters wide by 30 characters high
 #maps shoudl always be bordered by | and _
@@ -21,27 +22,27 @@ def mapify(map_str):
         format2.append(z)
     return format2
 def print_map(x):
-    the_map = x
-    for b in the_map:
-        out = ''
-        for i in b:
-            if i == '|' or i == '_':
-                out += Back.BLACK + '   ' + Style.RESET_ALL
-            elif i == ' ':
-                out += Back.WHITE + '   ' + Style.RESET_ALL
-            elif i == 'L':
-                out += Back.BLACK + ' 🏛 ' + Style.RESET_ALL
-            elif i == 'S':
-                out += Back.BLACK + ' 🏦 ' + Style.RESET_ALL
-            elif i == 'P':
-                out += Back.BLACK + ' 👤 ' + Style.RESET_ALL
-            elif i == 'player':
-                out += Back.BLACK + ' 🤺 ' + Style.RESET_ALL
+	the_map = x
+	for b in the_map:
+		out = ''
+		for i in b:
+			if i == '|' or i == '_':
+					out += Back.BLACK + '   ' + Style.RESET_ALL
+			elif i == ' ':
+					out += Back.WHITE + '   ' + Style.RESET_ALL
+			elif i == 'L':
+					out += Back.BLACK + ' 🏛 ' + Style.RESET_ALL
+			elif i == 'S':
+					out += Back.BLACK + ' 🏦 ' + Style.RESET_ALL
+			elif i == 'P':
+					out += Back.BLACK + ' 👤 ' + Style.RESET_ALL
+			elif i == 'player':
+					out += Back.BLACK + ' 🤺 ' + Style.RESET_ALL
 			elif i == 'K':
-				out += Back.YELLOW + Fore.BLACK + ' K ' + Style.RESET_ALL
+					out += Back.YELLOW + Fore.BLACK + ' K ' + Style.RESET_ALL
 			elif i == 'M':
-				out += Back.RED + ' 👺 ' + Style.RESET_ALL
-        print(out)
+					out += Back.RED + ' 👺 ' + Style.RESET_ALL
+		print(out)
 def kreiten_castle(player):
 	the_map = mapify('kreiten_castle_map.txt')
 	print_map(the_map)
@@ -74,7 +75,7 @@ def kreiten_castle(player):
 			x = o_x
 			y = o_y
 def the_wastes(player):
-	the_map = mapify('maps/the_wastes_map.txt')
+	the_map = mapify('the_wastes_map.txt')
 	print_map(the_map)
 	x = 15
 	y = 15

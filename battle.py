@@ -1,17 +1,35 @@
 import random
 import util
+from colorama import Style
 
-class enemy():
-	def __init__(self, min_damage, max_damage, name, type, health, min_defense, max_defense, block, loot, weapon, defense):
+
+PURPLE = '\033[95m'
+CYAN = '\033[96m'
+BLUE = '\033[94m'
+GREEN = '\033[92m'
+YELLOW = '\033[93m'
+RED = '\033[91m'
+BOLD = '\033[1m'
+UNDERLINE = '\033[4m'
+ITALIC = '\033[3m'
+FAINT =  '\033[2m'
+NORMAL = '\033[22m'
+
+
+class create_t():
+	def __init__(self, min_damage, max_damage, name, ttype, life, min_defense, max_defense, block, loot, weapon, defense):
 		self.min_damage = min_damage
 		self.max_damage = max_damage
 		self.name = name
-		self.type = type
-		self.healthy = health
+		self.type = ttype
+		self.life = life
 		self.min_defense = min_defense
 		self.max_defense = max_defense
 		self.block = block
-monsters = [goblin, orc, troll, thug, kraveb, thorg]
+		self.weapon = weapon
+		self.loot = loot
+		self.defense = defense
+
 goblin = {
 	'min_damage' : [1,2,3],
 	'max_damage' : [4,5,6],
@@ -77,11 +95,12 @@ thorg = {
 	'defense': ['Thog War Armor', 'Thorg War Shield'],
 	'type' : 'thorg'
 }
+monsters = [goblin, orc, troll, kraveb, thorg] #Add thug, duckswarm, grim quacker and others later
 def get_enemy():
 	i = random.choice(monsters)
-	enemy = enemy(random.choice(i['min_damage']), random.choice(i['max_damage']), random.choice(i['names']), i, i['type'], random.choice(i['health']), random.choice(i['min_defense']), random.choice(i['max_defense']), random.choice(i['block']), random.choice(i['loot']), random.choice(i['weapons']), random.choice(i['defense']))
-	return enemy
-def battle():
+	e = create_t(random.choice(i['min_damage']), random.choice(i['max_damage']), random.choice(i['names']), i['type'], random.choice(i['health']), random.choice(i['min_defense']), random.choice(i['max_defense']), random.choice(i['block']), random.choice(i['loot']), random.choice(i['weapons']), random.choice(i['defense']))
+	return e
+def battle(player):
 	enemy = get_enemy()
 	extra_damage = 0
 	extra_health = 0
@@ -102,5 +121,53 @@ def battle():
 	
 
 	#### BATTLE #####
-
-	
+	enemy_attack_1 = [' leaps and ', ' rolls and ', ' bellows and ', ' roars and ', ' dives and ', ' screams and ']
+	enemy_attack_2 = ['vicously strikes you in the ', 'punches you in the ', 'kicks you in the ', 'elbows you in a ', 'slashes you in the ', 'stabs you in the ', 'hits you in the ', 'pokes you in the ']
+	enemy_attack_3 = ['eye', 'face', 'stomach', 'head', 'mouth', 'throat', 'leg', 'arm', 'chest', 'nose', 'foot', 'hand', 'snozzle']
+	scream = ['You scream ', 'You shout in pain ', 'You roar in anger ', 'You grunt in pain ', '']
+	b = True
+	while b == True:
+		print(BOLD + UNDERLINE + GREEN + "LIFE: " + str(player['life']) + CYAN + ' | ' + RED + enemy.type + ' LIFE: ' + str(enemy.life) + Style.RESET_ALL)
+		util.slow_print(CYAN + enemy.name + random.choice(enemy_attack_1) + random.choice(enemy_attack_2) + random.choice(enemy_attack_3))
+		block = random.randint(1,3)
+		damage_taken = random.randint(enemy.min_damage, enemy.max_damage)
+		if block == 1:
+			print(GREEN + "You block!")
+			damage_taken -= player['shield_defense']
+		damage_taken -= random.randint(player['armor_min'], player['armor_max'])
+		util.slow_print(RED + random.choice(scream) + 'and take ' + str(damage_taken) + ' damage')
+		player['life'] -= damage_taken
+		util.slow_print("You attack with your " + player['main_weapon'])
+		damage_given = random.randint(player['main_weapon_min'], player['main_weapon_max'])
+		block = random.randint(1,3)
+		if block == 1:
+			damage_given -= enemy.block
+		damage_given -= random.randint(enemy.min_defense, enemy.max_defense)
+		if damage_taken > 0:
+			print(enemy.name + ' takes no damage!')
+		else:
+			enemy.life -= damage_given
+		if enemy.life <= 0:
+			print("Enemy defeated!")
+			## get loot
+			t = random.randint(1,5)
+			loot = ''
+			if t == 5:
+				loot = enemy.weapon
+				util.slow_print("You looted the body and got a " + loot)
+				player['weapons'].append(loot)
+			elif t == 4:
+				loot = enemy.defense
+				if loot in ('Armor', 'Fire Armor', 'Wooden Armor', 'Kraveb Chest Plate', 'Ice Armor', 'Thorg War Armor', 'Chainmail'):
+					util.slow_print("You looted the body and got a " + loot)
+					player['armors'].append(loot)
+				else:
+					util.slow_print("You looted the body and got a " + loot)
+					player['shields'].append(loot)
+			else:
+				loot = enemy.loot
+				util.slow_print("You looted the body and got " + loot)
+				player['monster_parts'].append(loot)
+		elif player['life'] <= 0:
+			print("You have been defeated...")
+			battle = False

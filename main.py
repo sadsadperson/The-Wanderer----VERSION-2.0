@@ -6,6 +6,7 @@ import battle
 from colorama import Fore, Back, Style
 from secret_lib_thing import print_file
 import my_map
+import battle
 ##################
 ## PLAYER VARS  ##
 ##################
@@ -62,7 +63,7 @@ player = {
 	'mission16' : False,
     ## We can add more here
 }
-
+battle.battle(player)
 PURPLE = '\033[95m'
 CYAN = '\033[96m'
 BLUE = '\033[94m'
@@ -82,6 +83,7 @@ NORMAL = '\033[22m'
 def print_user():
     while True:
         util.clear()
+        database.save(player)
         ### STRINGIGY BELOW 
         print(Style.RESET_ALL + GREEN + BOLD + UNDERLINE + 'CURRENT RIG')
         print(Style.RESET_ALL + Fore.GREEN + 'LIFE ' + str(player['life']))
@@ -268,8 +270,8 @@ while playing:
         ## Check player location
         if player['location'] == 'Kreiten Castle':
             my_map.kreiten_castle(player)
-		elif player['location'] == 'The Wastes':
-			my_map.the_wastes(player)
+        elif player['location'] == 'The Wastes':
+          my_map.the_wastes(player)
 
     else:
         print(RED + "Error! Not a choice!")
