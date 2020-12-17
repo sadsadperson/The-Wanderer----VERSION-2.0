@@ -10,7 +10,6 @@ import battle
 ##################
 ## PLAYER VARS  ##
 ##################
-
 player = {
     'life' : 25,
     'gold' : 0,
@@ -63,7 +62,7 @@ player = {
 	'mission16' : False,
     ## We can add more here
 }
-battle.battle(player)
+
 PURPLE = '\033[95m'
 CYAN = '\033[96m'
 BLUE = '\033[94m'
@@ -199,7 +198,7 @@ while True:
     if i == '1':
         user = input("Username: ")
         try:
-            database.restore(user)
+            player = database.restore(user)
             break
         except:
             print("Not a user!")
