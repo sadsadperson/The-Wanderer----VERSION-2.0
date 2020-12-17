@@ -43,23 +43,23 @@ player = {
     'xp' : 0, #your xp will go up really really as you to the first few missions that are easier
     'name' : '',
     'unlocked_locations' : ['Kreiten Castle', 'The Wastes', 'Iron Clan Lands'],
-		# MISSIONS
-		'mission1' : False,
-		'mission2' : False,
-		'mission3' : False,
-		'mission4' : False,
-		'mission5' : False,
-		'mission6' : False,
-		'mission7' : False,
-		'mission8' : False,
-		'mission9' : False,
-		'mission10' : False,
-		'mission11' : False,
-		'mission12' : False,
-		'mission13' : False,
-		'mission14' : False,
-		'mission15' : False,
-		'mission16' : False,
+	# MISSIONS
+	'mission1' : False,
+	'mission2' : False,
+	'mission3' : False,
+	'mission4' : False,
+	'mission5' : False,
+	'mission6' : False,
+	'mission7' : False,
+	'mission8' : False,
+	'mission9' : False,
+	'mission10' : False,
+	'mission11' : False,
+	'mission12' : False,
+	'mission13' : False,
+	'mission14' : False,
+	'mission15' : False,
+	'mission16' : False,
     ## We can add more here
 }
 
@@ -268,6 +268,9 @@ while playing:
         ## Check player location
         if player['location'] == 'Kreiten Castle':
             my_map.kreiten_castle(player)
+		elif player['location'] == 'The Wastes':
+			my_map.the_wastes(player)
+
     else:
         print(RED + "Error! Not a choice!")
                 

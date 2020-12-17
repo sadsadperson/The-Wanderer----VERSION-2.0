@@ -39,6 +39,8 @@ def print_map(x):
                 out += Back.BLACK + ' 🤺 ' + Style.RESET_ALL
 			elif i == 'K':
 				out += Back.YELLOW + Fore.BLACK + ' K ' + Style.RESET_ALL
+			elif i == 'M':
+				out += Back.RED + ' 👺 ' + Style.RESET_ALL
         print(out)
 def kreiten_castle(player):
 	the_map = mapify('kreiten_castle_map.txt')
@@ -71,4 +73,38 @@ def kreiten_castle(player):
 		else:
 			x = o_x
 			y = o_y
+def the_wastes(player):
+	the_map = mapify('maps/the_wastes_map.txt')
+	print_map(the_map)
+	x = 15
+	y = 15
+	while True:
+		o_x = x
+		o_y = y
+		print("\033[H",end="")
+		print_map(the_map)
+		the_map[y][x] = ' '
+		key_pressed = getch()
+		if key_pressed == 'w':
+			y -= 1
+		elif key_pressed == 's':
+			y += 1
+		elif key_pressed == 'd':
+			x += 1
+		elif key_pressed == 'a':
+			x -= 1
+		if the_map[y][x] not in ('S', 'L', 'P', '|', '_', 'K', 'A', 'M'):
+			the_map[y][x] = 'player'
+		elif the_map[y][x] == 'S':
+			shop.shop(player)
+		elif the_map[y][x] == 'P':
+			pass
+		elif the_map[y][x] == 'L':
+			secret_lib_thing.library()
+		elif the_map[y][x] == 'M':
+			battle.battle(player)
+		else:
+			x = o_x
+			y = o_y
     
+
