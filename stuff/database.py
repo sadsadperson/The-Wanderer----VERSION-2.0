@@ -28,3 +28,7 @@ def set_skill(skill):
     else:
         print("ERROR!")
         exit()
+def admin_delete_all():
+	keys = db.keys()
+	for key in keys:
+		del db[key]

@@ -1,6 +1,7 @@
 import random
 import util
 from colorama import Style
+import database
 
 
 PURPLE = '\033[95m'
@@ -35,9 +36,9 @@ goblin = {
 	'max_damage' : [4,5,6],
 	'names' : ['Glork', "Glemmo", "Snarg", 'Teyc', "Sncese", "Snozzle", "Flarms", "Technae", "Xcat", 'Flahg'],
 	'health' : [10,11,12,13,14,15],
-	'min_defense' : [1,2],
-	'max_defense' : [2,3],
-	'block' : [1,2,3,4],
+	'min_defense' : [1],
+	'max_defense' : [2],
+	'block' : [1,2,3],
 	'loot' : ['Goblin Guts', 'Goblin Brain', 'Goblin Claws', 'Goblin Eye'],
 	'weapons' : ['Sword', 'Spear'],
 	'defense' : ['Shield', 'Armor'],
@@ -51,7 +52,7 @@ orc = {
 	'min_defense' : [2,3],
 	'max_defense' : [4,5],
 	'block' : [2,3,4,5],
-	'loot' : ['Orc Guts', 'Org Eyes', 'Orc Brain', 'Orc Claws', 'Orc eyes', 'Orc hair'],
+	'loot' : ['Orc Guts', 'Orc Eyes', 'Orc Brain', 'Orc Claws', 'Orc hair'],
 	'weapons' : ['Sword', "Spear"],
 	'defense': ['Armor', 'Shield', 'Armor', 'Shield', 'Wooden Armor'],
 	'type' : 'Orc'
@@ -101,6 +102,7 @@ def get_enemy():
 	e = create_t(random.choice(i['min_damage']), random.choice(i['max_damage']), random.choice(i['names']), i['type'], random.choice(i['health']), random.choice(i['min_defense']), random.choice(i['max_defense']), random.choice(i['block']), random.choice(i['loot']), random.choice(i['weapons']), random.choice(i['defense']))
 	return e
 def battle(player):
+	util.clear()
 	enemy = get_enemy()
 	extra_damage = 0
 	extra_health = 0
@@ -118,6 +120,21 @@ def battle(player):
 		extra_health += 2 * player['specialty1_level']
 	elif player['specialty1'] == 'Specialist' and player['main_weapon'] in ('Fists', 'Sharp Stick'):
 		extra_damage += 5 * player['specialty1_level']
+	### YALL GOT SPAMMED
+	if player['specialty2'] == 'Thorgslayer' and enemy.type == 'Thorg':
+		extra_damage += 5 * player['specialty2_level']
+	elif player['specialty2'] == 'Swordsmen' and player['main_weapon'] in ('Sword', 'Fire Blade', 'Ice Pick', 'Long Sword' 'Dragon Slayer', 'Lightening Blade', 'Yeckity Toe Slizzer'):
+		extra_damage += 2 * player['specialty2_level']
+	elif player['specialty2'] == 'Archer' and player['main_weapon'] in ('Bow', 'Kraveb Crossbow', 'Street Crossbow', 'Lightening Bow', 'Thorg War Bow'):
+		extra_damage += 2 * player['specialty2_level']
+	elif player['specialty2'] == 'Spearmen' and player['main_weapon'] in ('Spear', 'Kraveb Heavy Spear', 'Rat Spear', 'Thorg War Spear', 'Yeckity Toe Throwing Spear'):
+		extra_damage += 2 * player['specialty2_level']
+	elif player['specialty2'] == 'Thug' and player['main_weapon'] == 'Heavy Wooden Clobberstick':
+		extra_damage += 5 * player['specialty2_level']
+	elif player['specialty2'] == 'Healer':
+		extra_health += 2 * player['specialty2_level']
+	elif player['specialty2'] == 'Specialist' and player['main_weapon'] in ('Fists', 'Sharp Stick'):
+		extra_damage += 5 * player['specialty2_level']
 	
 
 	#### BATTLE #####
@@ -137,14 +154,15 @@ def battle(player):
 		damage_taken -= random.randint(player['armor_min'], player['armor_max'])
 		util.slow_print(RED + random.choice(scream) + 'and take ' + str(damage_taken) + ' damage')
 		player['life'] -= damage_taken
-		util.slow_print("You attack with your " + player['main_weapon'])
-		damage_given = random.randint(player['main_weapon_min'], player['main_weapon_max'])
+		
+		damage_given = random.randint(player['main_weapon_min'], player['main_weapon_max']) + extra_damage
 		block = random.randint(1,3)
 		if block == 1:
 			damage_given -= enemy.block
 		damage_given -= random.randint(enemy.min_defense, enemy.max_defense)
-		if damage_taken > 0:
-			print(enemy.name + ' takes no damage!')
+		util.slow_print("You attack with your " + player['main_weapon'] + " and inflict " + str(damage_given) + ' damage')
+		if damage_given <= 0:
+			print("Enemy takes no damage!")
 		else:
 			enemy.life -= damage_given
 		if enemy.life <= 0:
@@ -168,6 +186,18 @@ def battle(player):
 				loot = enemy.loot
 				util.slow_print("You looted the body and got " + loot)
 				player['monster_parts'].append(loot)
+			player['kills'].append(enemy.type)
+			database.save(player)
+			input()
+			b = False
+			break
 		elif player['life'] <= 0:
 			print("You have been defeated...")
-			battle = False
+			input()
+			b = False
+			break
+		i = input("[1] Continue fighting | [2] Run away")
+		if i == '2':
+			b = False
+		else:
+			pass

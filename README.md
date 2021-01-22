@@ -1,3 +1,16 @@
+## UPDATES
+We need to work on:
+
+* Complete missions
+* Better leveling up for skills
+* Overall cleaner code
+* Finishing AI Talk
+* ~~Creating new locations~~ **Done**
+* Testing Skirmishes
+
+
+
+###    
 ## ULTIMATE RPG
 ### THE WANDERER
 
@@ -9,23 +22,24 @@ Deep in the past two great powers arose, one, the path of the darkness, the othe
 ## MISSIONS
 > note, levels have no bearing on completing the game, and some missions do not have to be done.
 
-**Mission 1**: Defeat 3 Kraveb as Gnole has asked
-**Mission 2**: Find and rescue The Snow prince
+**Mission 1**: Defeat 3 Kraveb as the King has asked
+**Mission 2**: Defeat a thorg
 **Mission 3**: Defeat Maximus the III
-**Mission 5**: Defeat Grim Quacker
-**Mission 6**: Survive the swarm
+**Mission 4**: Travel to Far Lands
+**Mission 5**: Survive the swarm
+**Mission 6**: Defeat grim quacker
 **Mission 7**: Defeat Mega rat
 **Mission 8**: Defeat the keeper at the gate of Travel
 **Mission 9**: Defeat Ultra the thorg
-**Mission 10**: Defeat Hotdog man
+**Mission 10**: Make 1000 Kills (reward: pro stuff)
 #### MISSIONS THAT CAN ONLY BE DONE ON THE PATH OF DARKNESS
-**Darkness 1**: Challenge King Loggerhead to a duel and defeat him
-**Darkness 2**: Kill 3 Castle Guards
-**Darkness 3**L Rob a civilian
-##### MISSIONS THAT CAN ONLY BE DONE ON THE PATH OF LIGHT
-**Light 1**: Lock the gate to the dark world
-**Light 2**: Defeat 3 Monster Guards
-**Light 3**: Defeat the Yeckity Toe Raiders
+**Darkness 11**: Over throw the king
+**Darkness 12**: Kill Z's guards
+**Darkness 13**: Rob a civilian
+#### MISSIONS THAT CAN ONLY BE DONE ON THE PATH OF LIGHT
+**Light 14**: Lock the gate to the dark world
+**Light 15**: Defeat 3 Monster Guards
+**Light 16**: Defeat the Yeckity Toe Raiders
 
 ## WEAPONS
 ### SWORDS
@@ -34,7 +48,7 @@ Deep in the past two great powers arose, one, the path of the darkness, the othe
 **Kraveb Dagger**: 3-8 Damage, 1 Weight
 **Kraveb Battle Axe**: 12-20 Damage, 5 Weight
 **Ice Pick**: 8-12 Damage, 3 Weight
-**Long Sword**: 10-15 DAMAGE, 3 Weight
+**Long Sword**: 10-15 Damage, 3 Weight
 **Heavy Wooden Clobberstick**: 1-30 Damage, 5 Weight
 **Dragon Slayer**: 12-18 Damage, 3 Weight
 **Lightening Blade**: 10-15 Damage, 1 Weight
@@ -42,6 +56,8 @@ Deep in the past two great powers arose, one, the path of the darkness, the othe
 **Thorg War Axe**: 20-40 Damage, 5 Weight
 **Yeckity Toe Slizzer**: 15-20 Damage, 2 Weight
 **Sharp Stick**: 1-30 Damage, 0 Weight
+**Pro Sword**: 18-35 Damage, 1 Weight
+
 ### BOWS
 **Bow**: 5-10 Damage, 3 Weight
 **Kraveb Crossbow**: 10-15 Damage, 5 Weight
@@ -57,12 +73,15 @@ Deep in the past two great powers arose, one, the path of the darkness, the othe
 
 ## SHIELDS AND ARMOR
 ### SHIELDS
+
 **Shield**: 5 Defense, 2 Weight
 **Light Shield**: 3 Defense, 1 Weight
 **Kraveb Plastic Shield**: 1 Defense, 0 Weight
 **Dragon Scale Shield**: 10 Defense, 2 Weight
 **Thorg War Shield**: 25 Defense, 4 Weight
+**Pro Shield**: 20 Defense, 1 Weight
 ### ARMOR
+
 **Armor**: 2-4 Defense, 2 Weight
 **Fire Armor**: 3-8 Defense, 2 Weight
 **Wooden Armor**: 1 Defense, 0 Weight
@@ -70,6 +89,7 @@ Deep in the past two great powers arose, one, the path of the darkness, the othe
 **Ice Armor**: 1-20 Defense, 4 Weight
 **Thorg War Armor**: 10-20 Defense, 5 Weight
 **Chainmail**: 5-10 Defense, 1 Weight
+**Pro Armor**: 10-20 Defense, 1 Weight
 
 
 ## MONSTERS AND NATIONS
@@ -88,3 +108,11 @@ Deep in the past two great powers arose, one, the path of the darkness, the othe
 **Rats**: Deadly rodents that infest the streets after dark, most are simply, rats. While other seem to be a little smarter... possibly too much smarter...
 **Ducks**: Ducks are kept as farm animals or house hold pets, and are usually not considered a threat. That is, unless they are in a swarm. When ducks swarm, they group together in a large gaggle known as a 'swarm'. During this swarm phase they devour anything in their path, often humans and farm animals. They complete this by sheer numbers. A duck swarm is extremely dangerous. It is nearly impossible to survive one. 
 **Grim Quacker**: While it is still questionable as to whether they actually exist. A grim quacker, according to legends is a duck that is hatched in the direct center of a duck swarm. It grows to several hundred pounds, larger then a human, and it's bill forms razor sharp death mandables. If they do exist, grim quackers are extremely dangerous, and should be avoided. 
+## SKILLS
+**Swordsmen**: Extra Damage with sword attacks
+**Archer**: Extra Damage with bow attacks
+**Healer**: Extra Health
+**Thorgslayer**: Extra Damage against Thorgs
+**Thug**: Extra damage with brute force weapons
+**Spearmen**: Extra damage with spears
+**Specialist**: Hyper damage with specialty weapons such as sharp stick and fists

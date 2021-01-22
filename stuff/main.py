@@ -7,12 +7,15 @@ from colorama import Fore, Back, Style
 from secret_lib_thing import print_file
 import my_map
 import battle
+import curses
+import os
+import skirmish
 ##################
-## PLAYER VARS  ##
+## PLAYER VAR   ##
 ##################
 player = {
     'life' : 25,
-    'gold' : 0,
+    'gold' : 25,
     'life_regen' : 25,
     'carry_ability' : 5,
     'current_weight' : 0,
@@ -61,6 +64,17 @@ player = {
 	'mission15' : False,
 	'mission16' : False,
     ## We can add more here
+	'team' : {'name' : '', 'level' : 0, 'helpers' : [], 'wins' : 0, 'loses' : 0}
+	### skill stats
+	'skills' : {
+		'sword_kills' : 0,
+		'spear_kills' : 0,
+		'bow_kills' : 0,
+		'specialty_kills' : 0,
+		'thug_kills' : 0,
+		'thorg_kills' : 0,
+		'heals' : 0,
+	}
 }
 
 PURPLE = '\033[95m'
@@ -80,6 +94,7 @@ NORMAL = '\033[22m'
 ###################
 
 def print_user():
+    global player
     while True:
         util.clear()
         database.save(player)
@@ -94,7 +109,9 @@ def print_user():
         print("[2] Unequip All")
         print("[3] View Kills")
         print("[4] View Monsterparts")
-        print('[5] Exit')
+        print("[5] Inventory overview")
+        print("[6] Clean Inventory [Removes duplicates of weapons/shields/armor]")
+        print('[7] Exit')
         i = input()
         if i == '1':
             print("[1] Equip Weapons")
@@ -146,6 +163,7 @@ def print_user():
                 print(Style.RESET_ALL + Back.BLUE + '  ARMOR  ' + Style.RESET_ALL)
                 for armor in player['armors']:
                     print(Style.RESET_ALL + Fore.GREEN + '[' + str(count) + ']  ' + armor + ' | MIN DEFENSE: ' + str(util.get_armor_stat_min(armor)) + ' | MAX DEFENSE: ' + str(util.get_armor_stat_max(armor)) + ' | WEIGHT: ' + str(util.get_weight(armor)))
+                    count += 1
                 choice = input()
                 try:
                     new_armor = player['armors'][int(choice)]
@@ -183,8 +201,62 @@ def print_user():
             for part in player['monster_parts']:
                 print(Fore.GREEN + '  -  ' + part)
             input()
-        elif i == '5':
+        elif i == '7':
             break
+        elif i == '5':
+            print(GREEN + BOLD + UNDERLINE + '         ~ STATS ~         ' + Style.RESET_ALL)
+            print(Style.RESET_ALL + Fore.GREEN + 'LIFE ' + str(player['life']))
+            print("You are currently: " + util.get_good_bad(player))
+            print("CARRYING WEIGHT: " + str(player['current_weight']))
+            print("MAIN WEAPON: " + player['main_weapon'] + ' | MIN DAMAGE: ' + str(player['main_weapon_min']) + ' | MAX DAMAGE: ' + str(player['main_weapon_max']) + ' | AMMO: ' + str(player['main_weapon_ammo']))
+            print("SHIELD: " + player['shield'] + ' | DEFENSE: ' + str(player['shield_defense']))
+            print("ARMOR: " + player['armor'] + ' | MIN DEFENSE: ' + str(player['armor_min']) + ' | MAX DEFENSE: ' + str(player['armor_max']))
+            print(GREEN + BOLD + UNDERLINE + '     ~ ALL INVENTORY ~     ')
+            print(Style.RESET_ALL + CYAN + BOLD + '  WEAPONS  ' + Style.RESET_ALL)
+            for weapon in player['weapons']:
+                print(Fore.BLUE + weapon)
+            print(Style.RESET_ALL + CYAN + BOLD + '  SHIELDS  ' + Style.RESET_ALL)
+            for shield in player['shields']:
+                print(Fore.BLUE + shield)
+            print(Style.RESET_ALL + CYAN + BOLD + '  ARMOR  ' + Style.RESET_ALL)
+            for a in player['armors']:
+                print(Fore.BLUE + a)
+            print(Style.RESET_ALL + CYAN + BOLD + '  KILLS  ' + Style.RESET_ALL)
+            print("Goblin: " + str(util.count_list(player['kills'], 'Goblin')))
+            print("Orc: " + str(util.count_list(player['kills'], 'Orc')))
+            print("Troll: " + str(util.count_list(player['kills'], 'Troll')))
+            print("Kraveb: " + str(util.count_list(player['kills'], 'kraveb')))
+            print("Thorg: " + str(util.count_list(player['kills'], 'thorg')))
+            for k in player['kills']:
+                if k not in ('kraveb', 'Goblin', 'Orc', 'thorg', 'Troll'):
+                    print(Fore.BLUE + k)
+            print(Style.RESET_ALL + CYAN + BOLD + '  MONSTER PARTS  ' + Style.RESET_ALL)
+            for part in player['monster_parts']:
+                print(Fore.BLUE + part)
+            print(Style.RESET_ALL + CYAN + BOLD + '  MISSIONS  ' + Style.RESET_ALL)
+            print(Fore.BLUE + "Mission 1: " + str(player['mission1']))
+            print("Mission 2: " + str(player['mission2']))
+            print("Mission 3: " + str(player['mission3']))
+            print("Mission 4: " + str(player['mission4']))
+            print("Mission 5: " + str(player['mission5']))
+            print("Mission 6: " + str(player['mission6']))
+            print("Mission 7: " + str(player['mission7']))
+            print("Mission 8: " + str(player['mission8']))
+            print("Mission 9: " + str(player['mission9']))
+            print("Mission 10: " + str(player['mission10']))
+            print("Mission 11 (Optional): " + str(player['mission11']))
+            print("Mission 12 (Optional): " + str(player['mission12']))
+            print("Mission 13 (Optional): " + str(player['mission13']))
+            print("Mission 14 (Optional): " + str(player['mission14']))
+            print("Mission 15 (Optional): " + str(player['mission15']))
+            print("Mission 16 (Optional): " + str(player['mission16']))
+            print(Style.RESET_ALL + CYAN + BOLD + '  SKILLS  ' + Style.RESET_ALL)
+            print(Fore.BLUE + 'SKILL ONE: ' + player['specialty1'] + ' | LEVEL: ' + str(player['specialty1_level']))
+            print('SKILL TWO: ' + player['specialty2'] + ' | LEVEL: ' + str(player['specialty2_level']))
+            input()
+        elif i == '6':
+            player = util.clean(player)
+			
 
 
 
@@ -202,6 +274,10 @@ while True:
             break
         except:
             print("Not a user!")
+    elif i == 'delete':
+        password = input("Password: ")
+        if password == os.getenv('SECRET_PASSWORD'):
+            database.admin_delete_all()
     else:
         user = input("Username: ")
         win = database.does_user_exist(user)
@@ -234,9 +310,10 @@ while True:
 ###########
 # PLAYING #
 ###########
-
 playing = True
 while playing:
+    player['specialty1_level'] = util.get_specialty1_level(player)
+    player['specialty2_level'] = util.get_specialty2_level(player)
     database.save(player)
     util.clear()
     print(Style.RESET_ALL + BOLD + GREEN + UNDERLINE + "LOCATION: " + player['location'] + ' | LIFE: ' + str(player['life']) + ' | GOLD: ' + str(player['gold']))
@@ -244,6 +321,7 @@ while playing:
     print('[1] View Inventory/Equip items')
     print('[2] Travel')
     print('[3] Look Around')
+    print("[4] Skirmish")
     choice = input()
     if choice == '1':
         print_user()
@@ -271,10 +349,18 @@ while playing:
             my_map.kreiten_castle(player)
         elif player['location'] == 'The Wastes':
           my_map.the_wastes(player)
-
+        elif player['location'] == 'Monster Lands':
+          my_map.monster_lands(player)
+        elif player['location'] == 'Far Lands':
+          my_map.far_lands(player)
+        elif player['location'] == 'Beggar City':
+          my_map.beggar_city(player)
+    elif choice == 'hack':
+        util.hack(player)
+    elif choice == 'mayhem':
+        util.mahem(player)
+    elif choice == '4':
+        skirmish.skirmish(player)
     else:
         print(RED + "Error! Not a choice!")
                 
-        
-
-
