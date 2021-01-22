@@ -2,6 +2,7 @@ import database
 from util import slow_print
 import util
 from ai_talk import game_master as g
+import random
 def skirmish(player):
 	util.clear()
 	if not player['team']['helpers']:
@@ -13,23 +14,30 @@ def skirmish(player):
 	else:
 		stat(player)
 def stat(player):
-	team = player['team']
-	print("Team Name: " + team['name'] + ' | Level: ' + str(team['level']) + ' | Victories: ' + str(team['wins']))
-	print("[1] View Team Members")
-	print("[2] Battle")
-	i = input()
-	if i == '1':
-		for helper in team['helpers']:
-			print("[" + str(team['helpers'].index(helper)) + '] ' + helper['name'] + ' | Level: ' + str(helper['level']))
-		print("[l] Leave")
-		choice = input()
-		if choice != 'l':
-			fighter = team['helpers'][choice]
-			print("Name: " + fighter['name'])
-			print("Min Damage: " + str(fighter['min_damage']) + " | Max Damage: " + str(fighter['max_damage']))
-			print("Min Defense: " + str(fighter['min_defense']) + ' | Max Defense: ' + str(fighter['max_defense']))
-	elif choice == '2':
-		battle(team, player)
+	while True:
+		team = player['team']
+		print("Team Name: " + team['name'] + ' | Level: ' + str(team['level']) + ' | Victories: ' + str(team['wins']))
+		print("[1] View Team Members")
+		print("[2] Battle")
+		print("[3] Back")
+		i = input()
+		if i == '1':
+			for helper in team['helpers']:
+				print("[" + str(team['helpers'].index(helper)) + '] ' + helper['name'] + ' | Level: ' + str(helper['level']))
+			print("[l] Leave")
+			choice = input()
+			if choice != 'l':
+				fighter = team['helpers'][int(choice)]
+				print("Name: " + fighter['name'])
+				print("Min Damage: " + str(fighter['min_damage']) + " | Max Damage: " + str(fighter['max_damage']))
+				print("Min Defense: " + str(fighter['min_defense']) + ' | Max Defense: ' + str(fighter['max_defense']))
+			else:
+				pass
+		elif i == '2':
+			battle(team, player)
+		elif i == '3':
+			break
+	input()
 def get_level(x):
 	score = x['max_damage'] + x['min_damage'] + x['min_defense'] + x['max_defense'] + x['block'] + x['life']
 	level = 0
@@ -45,9 +53,10 @@ def get_level(x):
 		level = 0
 	return level
 def get_enemy():
+	enemy_names = ['dude', 'wassup', 'girkle', 'Frig', 'Fart', "toot", "naoob", "wathge", "wher", "hgea", "ahge", "awehgea", "EWhage", "eahgea", "eiegh", 'AChe', "ehere", 'HEge', "Er'e ad", "adfae", 'Aehage', "kere", "hbeaf", "gherfe"]
 	number = random.randint(1,8)
 	enemies = []
-	for i in number:
+	for i in range(number):
 		enemy = {
 			'name' : random.choice(enemy_names),
 			'min_damage' : random.randint(1,5),
@@ -55,26 +64,29 @@ def get_enemy():
 			'min_defense' : random.randint(1,3),
 			'max_defense' : random.randint(4,8),
 			'block' : random.randint(1,20),
-			'life' : random.randint(5, 25)
+			'life' : random.randint(5, 25),
 			'level' : 0,
 		}
 		enemy['level'] = get_level(enemy)
 		enemies.append(enemy)
+	return enemies
 def battle(team, player):
+	enemies = get_enemy()
 	while True:
-		enemies = get_enemy()
+		
 		possible_fighters = team['helpers']
 		for fighter in possible_fighters:
-			print(fighter['name'] + ' | Life: ' + str(fighter['life'] + ' | Level: ' + str(get_level(fighter))))
+			print(fighter['name'] + ' | Life: ' + str(fighter['life']) + ' | Level: ' + str(get_level(fighter)))
 		print('   ENEMIES   ')
 		count = 0
 		for enemy in enemies:
 			print('[' + str(count) + '] ' + enemy['name'] + ' | Life: ' + str(enemy['life']) + ' | Level: ' + str(enemy['level']))
+			count += 1
 		attacker = random.choice(team['helpers'])
 		print("Who should " + attacker['name'] + " attack? ")
 		i = int(input())
 		target = enemies[i]
-		print(attacker['name'] + ' attacks ' + target['name')
+		print(attacker['name'] + ' attacks ' + target['name'])
 		damage = random.randint(attacker['min_damage'], attacker['max_damage'])
 		deflected = random.randint(target['min_defense'], target['max_defense'])
 		percent = int((deflected / damage) * 100)
@@ -86,14 +98,15 @@ def battle(team, player):
 			damage -= target['block']
 		print(target['name'] + ' takes ' + str(damage) + ' damage')
 		enemies[i]['life'] -= damage
-		if enemies[i][life] <= 0:
+		if enemies[i]['life'] <= 0:
 			print(attacker['name'] + ' defeated ' + enemies[i]['name'])
 			enemies.remove(target)
-			player['team']['helpers'][attacker]['defeated'] += 1
+			attacker_num = player['team']['helpers'].index(attacker)
+			player['team']['helpers'][attacker_num]['defeated'].append(target['name'])
 			database.save(player)
 		if not enemies:
 			print("You win!")
-			player['teams']['wins'] += 1
+			player['team']['wins'] += 1
 			v = random.randint(20,100)
 			print('You won ' + str(v) + ' gold!')
 			player['gold'] += v
@@ -107,7 +120,7 @@ def battle(team, player):
 		percent = int((deflected / damage_taken) * 100)
 		print(enemy_target['name'] + ' deflects ' + str(percent) + '% of the damage!')
 		damage_taken -= deflected
-		t = random.choice(1,2)
+		t = random.randint(1,2)
 		if t == 1:
 			print(enemy_target['name'] + ' blocks!')
 			damage_taken -= enemy_target['block']

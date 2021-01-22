@@ -13,7 +13,7 @@ from colorama import Style
 import util
 
 def get_file(filename):
-    with open('library/'+filename+'.txt', 'r') as file:
+    with open('stuff/library/'+filename+'.txt', 'r') as file:
         return file.read()
 def print_file(filename):
     file = get_file(filename)

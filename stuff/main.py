@@ -64,7 +64,13 @@ player = {
 	'mission15' : False,
 	'mission16' : False,
     ## We can add more here
-	'team' : {'name' : '', 'level' : 0, 'helpers' : [], 'wins' : 0, 'loses' : 0}
+	'team' : {
+		'name' : '',
+		'level' : 0,
+		'helpers' : [],
+		'wins' : 0,
+		'loses' : 0
+		},
 	### skill stats
 	'skills' : {
 		'sword_kills' : 0,
@@ -276,7 +282,7 @@ while True:
             print("Not a user!")
     elif i == 'delete':
         password = input("Password: ")
-        if password == os.getenv('SECRET_PASSWORD'):
+        if password == 'secretpassword':
             database.admin_delete_all()
     else:
         user = input("Username: ")
@@ -355,6 +361,8 @@ while playing:
           my_map.far_lands(player)
         elif player['location'] == 'Beggar City':
           my_map.beggar_city(player)
+        elif player['location'] == 'Ironclan':
+          my_map.iron_clan(player)
     elif choice == 'hack':
         util.hack(player)
     elif choice == 'mayhem':

@@ -1,12 +1,12 @@
 ## UPDATES
 We need to work on:
 
-* Complete missions
+* ~~Complete missions~~ **Done**
+* ~~New location for Ultra the Thorg~~ **Done**
 * Better leveling up for skills
 * Overall cleaner code
-* Finishing AI Talk
 * ~~Creating new locations~~ **Done**
-* Testing Skirmishes
+* ~~Testing Skirmishes~~ **Done**
 
 
 
@@ -32,13 +32,12 @@ Deep in the past two great powers arose, one, the path of the darkness, the othe
 **Mission 8**: Defeat the keeper at the gate of Travel
 **Mission 9**: Defeat Ultra the thorg
 **Mission 10**: Make 1000 Kills (reward: pro stuff)
-#### MISSIONS THAT CAN ONLY BE DONE ON THE PATH OF DARKNESS
+#### OPTIONAL MISSIONS
 **Darkness 11**: Over throw the king
 **Darkness 12**: Kill Z's guards
 **Darkness 13**: Rob a civilian
-#### MISSIONS THAT CAN ONLY BE DONE ON THE PATH OF LIGHT
 **Light 14**: Lock the gate to the dark world
-**Light 15**: Defeat 3 Monster Guards
+**Light 15**: Defeat a Monster Guard
 **Light 16**: Defeat the Yeckity Toe Raiders
 
 ## WEAPONS
@@ -55,7 +54,6 @@ Deep in the past two great powers arose, one, the path of the darkness, the othe
 **Rat dagger**: 8-10 Damage, 0 Weight
 **Thorg War Axe**: 20-40 Damage, 5 Weight
 **Yeckity Toe Slizzer**: 15-20 Damage, 2 Weight
-**Sharp Stick**: 1-30 Damage, 0 Weight
 **Pro Sword**: 18-35 Damage, 1 Weight
 
 ### BOWS
@@ -91,7 +89,15 @@ Deep in the past two great powers arose, one, the path of the darkness, the othe
 **Chainmail**: 5-10 Defense, 1 Weight
 **Pro Armor**: 10-20 Defense, 1 Weight
 
-
+## SPECIALTY WEAPONS
+### Sharp Stick
+**Damage: ** 1-30
+**Weight: ** 0
+**Data: ** Nobody knows where this deadly stick came from, but they know it's power. It has the unique ability to deal extremely high or low damage, depending on where it strikes. It is an extremely dangerous weapon in the right hands
+### Octopus
+**Damage: ** 1-8 Per tenticle (8)
+**Weight: ** 0
+**Data: ** Who would of thought that an octopus would be a dangerous weapon? But it is. With the ability to deal up to 8 damage per tenticle, (64 damage total). It makes quite a dangerous weapon. Found deep in Ironclan teritory ruled by the Thorgs, it is dangerous to approach an octopus due to the fact that Yeckity Toe Raiders often disguess themself inside of octopus skins. Use caution when battle octopuses.
 ## MONSTERS AND NATIONS
 ### NATIONS
 **Monsterland**: A dark island covered in thick fog. A ravaged land filled with constant burning. Dangerous monsters roam, vaguely controlled by a caste system depending on strenth, the stronging being the Thorgs, which rule monsterland

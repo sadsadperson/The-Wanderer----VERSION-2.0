@@ -1,5 +1,6 @@
 import util, time, random, database, os
 from colorama import Fore, Back, Style
+import ai_talk
 attack_style = ['vicously', 'wildely', 'heriocly', 'dangerously', 'amazingly', 'savagly', 'strangly']
 
 def get_max():
@@ -348,3 +349,35 @@ def gate_keeper(player):
 			else:
 				print("You escape...")
 			input()
+
+
+
+def ultra_the_thorg(player):
+	if player['main_weapon'] not in ('Octopus', 'Pro Sword'):
+		util.s_print("Ultra the Thorg smashes you with one finger")
+		ai_talk.thorg("Get gud noob!")
+		util.s_print("You were defeated by Ultra the thorg...")
+	elif player['main_weapon'] == 'Octopus':
+		util.s_print("You vicously strike Ultra the Thorg with an Octopus")
+		if random.randint(1,8) * 8 == 64:
+			util.s_print("You defeated Ultra the Thorg!")
+			player['mission9'] = True
+			util.s_print("You can now close the portal to the monster world")
+			print("[1] Do it | [2] Leave it for later")
+			i = input()
+			if i == '1':
+				print("You closed the portal to the monster world!")
+				player['mission14'] = True
+		else:
+			ai_talk.thorg("Noob!!! You try and kill me with an octopus!")
+			util.s_print("Ultra the thorg defeats you with his toe...")
+	elif player['main_weapon'] == 'Pro Sword':
+		util.s_print("You strike Ultra the Thorg down using your Pro Sword")
+		player['mission9'] = True
+		util.s_print("You defeated Ultra the Thorg!")
+		util.s_print("You can now close the portal to the monster world")
+		print("[1] Do it | [2] Leave it for later")
+		i = input()
+		if i == '1':
+			print("You closed the portal to the monster world!")
+			player['mission14'] = True

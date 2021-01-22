@@ -17,7 +17,12 @@ def slow_print(x):
         sys.stdout.flush()
         time.sleep(.02)
     print()
-
+def s_print(x):
+	for char in x:
+		sys.stdout.write(char)
+		sys.stdout.flush()
+		time.sleep(.05)
+	print()
 # Talk funciton is used for poeple talking to player
 def talk(x):
     slow_print(Fore.BLUE + Style.BRIGHT + x + Style.RESET_ALL)
@@ -74,6 +79,8 @@ def get_stat_min(weapon): #returns the minimum damage of a weapon
         return 80
     elif weapon == 'Yeckity Toe Throwing Spear':
         return 15
+    elif weapon == 'Octopus':
+        return 8
     else:
         return "a;ldkjf;aldjf;lakjd;f"
 def get_stat_max(weapon):
@@ -123,6 +130,8 @@ def get_stat_max(weapon):
         return 80
     elif weapon == 'Yeckity Toe Throwing Spear':
         return 15
+    elif weapon == 'Octopus':
+        return 8
     else:
         return "a;ldkjf;aldjf;lakjd;f"
 def get_shield_stat_max(s):
@@ -248,6 +257,8 @@ def get_weight(item):
         return 5
     elif item == 'Chainmail':
         return 1
+    elif item == 'Octopus':
+        return 0
 
 def get_level(xp):
     if xp >= 5000:
@@ -336,7 +347,7 @@ def list_count_special(target, value):
 def get_specialty1_level(player):
 	level = 1
 	if player['specialty1'] == 'Swordsmen':
-		count = list_count(player['kills'])
+		count = player['skills']['sword_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -359,7 +370,7 @@ def get_specialty1_level(player):
 			level = 1
 		return level
 	elif player['specialty1'] == 'Archer':
-		count = list_count(player['kills'])
+		count = player['skills']['bow_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -382,7 +393,7 @@ def get_specialty1_level(player):
 			level = 1
 		return level
 	elif player['specialty1'] == 'Spearmen':
-		count = list_count(player['kills'])
+		count = player['skills']['spear_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -405,7 +416,7 @@ def get_specialty1_level(player):
 			level = 1
 		return level
 	elif player['specialty1'] == 'Healer':
-		count = list_count(player['kills'])
+		count = player['skills']['heals']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -428,7 +439,7 @@ def get_specialty1_level(player):
 			level = 1
 		return level
 	elif player['specialty1'] == 'Thorgslayer':
-		count = list_count_special(player['kills'], 'thorg')
+		count = player['skills']['thorg_kills']
 		if count >= 80:
 			level = 10
 		elif count >= 70:
@@ -451,7 +462,7 @@ def get_specialty1_level(player):
 			level = 1
 		return level
 	elif player['specialty1'] == 'Thug':
-		count = list_count(player['kills'])
+		count = player['skills']['thug_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -474,7 +485,7 @@ def get_specialty1_level(player):
 			level = 1
 		return level
 	elif player['specialty1'] == 'Specialist':
-		count = list_count(player['kills'])
+		count = player['skills']['specialty_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -504,7 +515,7 @@ def get_specialty1_level(player):
 def get_specialty2_level(player):
 	level = 1
 	if player['specialty2'] == 'Swordsmen':
-		count = list_count(player['kills'])
+		count = player['skills']['sword_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -527,7 +538,7 @@ def get_specialty2_level(player):
 			level = 1
 		return level
 	elif player['specialty2'] == 'Archer':
-		count = list_count(player['kills'])
+		count = player['skills']['bow_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -550,7 +561,7 @@ def get_specialty2_level(player):
 			level = 1
 		return level
 	elif player['specialty2'] == 'Spearmen':
-		count = list_count(player['kills'])
+		count = player['skills']['spear_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -573,7 +584,7 @@ def get_specialty2_level(player):
 			level = 1
 		return level
 	elif player['specialty2'] == 'Healer':
-		count = list_count(player['kills'])
+		count = player['skills']['heals']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -596,7 +607,7 @@ def get_specialty2_level(player):
 			level = 1
 		return level
 	elif player['specialty2'] == 'Thorgslayer':
-		count = list_count_special(player['kills'], 'thorg')
+		count = player['skills']['thorg_kills']
 		if count >= 80:
 			level = 10
 		elif count >= 70:
@@ -619,7 +630,7 @@ def get_specialty2_level(player):
 			level = 1
 		return level
 	elif player['specialty2'] == 'Thug':
-		count = list_count(player['kills'])
+		count = player['skills']['thug_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -642,7 +653,7 @@ def get_specialty2_level(player):
 			level = 1
 		return level
 	elif player['specialty2'] == 'Specialist':
-		count = list_count(player['kills'])
+		count = player['skills']['specialty_kills']
 		if count >= 150:
 			level = 10
 		elif count >= 130:
@@ -670,6 +681,7 @@ def sentence(t):
 		clear()
 		print("You have " + str(count) + ' seconds left in jail...')
 		count += 1
+		time.sleep(1)
 def count_list(the_list, target_val):
 	count = 0
 	for item in the_list:

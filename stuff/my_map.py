@@ -9,6 +9,7 @@ import curses
 import sell
 import boss_fight
 import multi_battle
+import random
 ### MAP ###
 #maps should be a list of lists, they should be 30 characters wide by 30 characters high
 #maps shoudl always be bordered by | and _
@@ -59,6 +60,10 @@ def print_map(x):
 					out += Back.WHITE + ' 👁 ' + Style.RESET_ALL
 			elif i == 'x':
 					out += Back.WHITE + '   ' + Style.RESET_ALL
+			elif i == 'U':
+					out += Back.WHITE + ' 🐗 ' + Style.RESET_ALL
+			elif i == 'R':
+					out += Back.WHITE + ' 🐙 ' + Style.RESET_ALL
 		print(out)
 def kreiten_castle(player):
 	if player['mission11'] == True:
@@ -89,7 +94,7 @@ def kreiten_castle(player):
 		elif the_map[y][x] == 'S':
 			shop.shop(player)
 		elif the_map[y][x] == 'P':
-			pass
+			ai_talk.speak_dude(player)
 		elif the_map[y][x] == 'L':
 			secret_lib_thing.library()
 		elif the_map[y][x] == 't':
@@ -126,7 +131,7 @@ def the_wastes(player):
 		elif the_map[y][x] == 'S':
 			shop.shop(player)
 		elif the_map[y][x] == 'P':
-			pass
+			ai_talk.speak_dude(player)
 		elif the_map[y][x] == 'L':
 			secret_lib_thing.library()
 		elif the_map[y][x] == 'M':
@@ -163,7 +168,7 @@ def monster_lands(player):
 		elif the_map[y][x] == 'S':
 			shop.shop(player)
 		elif the_map[y][x] == 'P':
-			pass
+			ai_talk.speak_dude(player)
 		elif the_map[y][x] == 'L':
 			secret_lib_thing.library()
 		elif the_map[y][x] == 'M':
@@ -201,7 +206,7 @@ def far_lands(player):
 		elif the_map[y][x] == 'S':
 			shop.shop(player)
 		elif the_map[y][x] == 'P':
-			pass
+			ai_talk.speak_dude(player)
 		elif the_map[y][x] == 'L':
 			secret_lib_thing.library()
 		elif the_map[y][x] == 'M':
@@ -211,7 +216,7 @@ def far_lands(player):
 		elif the_map[y][x] == 'Q':
 			boss_fight.grim_quacker(player)
 		elif the_map[y][x] == 'G':
-			boss_fight.guard(player)
+			battle.z_guard_fight(player)
 		elif the_map[y][x] == 'Z':
 			ai_talk.farlands(player)
 		else:
@@ -245,7 +250,7 @@ def beggar_city(player):
 		elif the_map[y][x] == 'S':
 			shop.shop(player)
 		elif the_map[y][x] == 'P':
-			pass
+			ai_talk.speak_dude(player)
 		elif the_map[y][x] == 'L':
 			secret_lib_thing.library()
 		elif the_map[y][x] == 'M':
@@ -258,6 +263,72 @@ def beggar_city(player):
 			ai_talk.farlands(player)
 		elif the_map[y][x] == 'x':
 			boss_fight.gate_keeper(player)
+		
+		else:
+			x = o_x
+			y = o_y
+
+def iron_clan(player):
+	the_map = mapify('iron_clan.txt')
+	print_map(the_map)
+	x = 15
+	y = 15
+	while True:
+		o_x = x
+		o_y = y
+		print("\033[H",end="")
+		print_map(the_map)
+		the_map[y][x] = ' '
+		key_pressed = getch()
+		if key_pressed == 'w':
+			y -= 1
+		elif key_pressed == 's':
+			y += 1
+		elif key_pressed == 'd':
+			x += 1
+		elif key_pressed == 'a':
+			x -= 1
+		elif key_pressed == 'l':
+			break
+		if the_map[y][x] not in ('U', 'S', 'L', 'P', '|', '_', 'K', 'A', 'M', 'B', 'G', 'Z', 'Q', 'D', 'x', 'R'):
+			the_map[y][x] = 'player'
+		elif the_map[y][x] == 'S':
+			shop.shop(player)
+		elif the_map[y][x] == 'P':
+			ai_talk.speak_dude(player)
+		elif the_map[y][x] == 'L':
+			secret_lib_thing.library()
+		elif the_map[y][x] == 'M':
+			battle.battle(player)
+		elif the_map[y][x] == 'D':
+			multi_battle.duck_fight(player)
+		elif the_map[y][x] == 'B':
+			ai_talk.mega_rat(player)
+		elif the_map[y][x] == 'U':
+			ai_talk.ultra_thorg(player)
+		elif the_map[y][x] == 'G':
+			battle.monster_guard(player)
+		elif the_map[y][x] == 'R':
+			baba = random.randint(1,2)
+			if baba == 1:
+				util.s_print("Ohno! It wasn't an octopus it was a Raider in disguise!")
+				battle.yeckity_toe(player)
+			else:
+				util.s_print("Ohno! A wild octopus attacks!")
+				damage = random.randint(1,8)
+				octo_damage = damage * 8
+				util.s_print("The wild octopus attacks and deals " + str(octo_damage) + " damage!")
+				player['life'] -= octo_damage
+				if player['life'] <= 0:
+					util.s_print("You were killed by a savage octopus")
+				else:
+					util.s_print("You vicously strike the octopus with your " + player['main_weapon'] + " and kill it")
+					player['kills'].append("Wild Octopus")
+					player['weapons'].append("Octopus")
+					util.s_print("You got a new weapon: Octopus")
+					util.s_print("Note: Octopus and some other specialty weapons cannot be used against bosses")
+	
+		
 		else:
 			x = o_x
 			y = o_y

@@ -267,3 +267,58 @@ def mega_rat(player):
 			boss_fight.mega_rat(player)
 	else:
 		m("Mega rat is dead, I am the new leader, Ultra Rat, you may come here in peace")
+def speak_dude(player):
+	util.clear()
+	good_talk = ['Hi there, how are you?', "Hello, nice day isn't it?", "Hi there!"]
+	bad_talk = ['Ohno, are you here to kill me?', "Please, go away", 'Help its the bad man!']
+	good_talk2 = ["I'm off to go fishing see you later", "Goodbye now", "See you around"]
+	bad_talk2 = ["Please don't kill me!", "Go away!", "AAHHHH!"]
+	if player['bad_points'] > player['good_points']:
+		old_man(random.choice(bad_talk))
+		input()
+		old_man(random.choice(bad_talk2))
+		print("[1] Kill the villager")
+		print("[2] Leave the villager")
+		print("[3] Rob the villager")
+		choice = input()
+		if choice == '1':
+			s_print("You killed a villager!")
+			player['bad_points'] += 3
+		elif choice == '2':
+			s_print("You walked away from the villager")
+		elif choice == '3':
+			cash = random.randint(1,20)
+			s_print("You robbed the villager and got " + str(cash) + ' gold')
+			player['bad_points'] += 1
+			player['gold'] += cash
+		else:
+			s_print("You walked away...")
+	else:
+		old_man(random.choice(good_talk))
+		input()
+		old_man(random.choice(good_talk2))
+		print("[1] Give the villager some money")
+		print("[2] Leave the villager")
+		print("[3] Rob the villager")
+		i = input()
+		if i == '1':
+			cash = random.randint(1,10)
+			s_print("You gave the villager " + str(cash) + 
+			' gold')
+			player['gold'] -= cash
+			player['mission13'] = True
+		elif i == '3':
+			cash = random.randint(1,20)
+			s_print("You robbed the villager and got " + str(cash) + ' gold')
+			player['gold'] += cash
+			player['mission13'] = True
+		else:
+			s_print("You walked away...")
+	input()
+	util.clear()
+def ultra_thorg(player):
+	thorg("What do you want tiny human?")
+	you("Dude, chill, I just came here to kill you and stop your evil reign by stealing your throne and sealing your passage to the monsterworld!")
+	thorg("ROOOOAARRRR!!! ")
+	s_print("Ultra the thorg attacks you...")
+	boss_fight.ultra_the_thorg_fight(player)

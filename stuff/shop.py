@@ -10,7 +10,7 @@ def shop(player):
 			['[1]', 'Sword', '10 Gold'],
 			['[2]', 'Shield', '10 Gold'],
 			['[3]', 'Bow', '10 Gold'],
-			['[4]', 'Heal', '5 Gold'],
+			['[4]', 'Heal', 'Free [unless you want extra health]'],
 			['[5]', 'Spear', '10 Gold'],
 			['[6]', 'Arrows', '1 Gold Each'],
 			['[7]', 'Armor', '10 Gold'],
@@ -54,13 +54,17 @@ def shop(player):
 			else:
 				print("You need more money")
 		elif buy == '4':
-			if player['gold'] >= 5:
-				print("You have healed")
-				player['gold'] -= 5
+			if player['life'] >= 25:
+				if player['gold'] >= 5:
+					print("You have healed")
+					player['gold'] -= 5
+					player['life'] += 5
+					player['skills']['heals'] += 1
+				else:
+					print("You need more money")
+			else:
 				player['life'] = 25
 				player['skills']['heals'] += 1
-			else:
-				print("You need more money")
 		elif buy == '6':
 			amount = int(input("How many arrows would you like to buy?\n"))
 			if player['gold'] >= amount:
